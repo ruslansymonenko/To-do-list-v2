@@ -1,13 +1,14 @@
 class Task {
-    constructor(text, date, time) {
+    constructor(text, date, time, classname) {
         this.text = text;
         this.date = date;
         this.time = time;
+        this.classname = classname
     }
 
     render(container) {
         let task = document.createElement('div');
-        task.setAttribute('class', 'task');
+        task.setAttribute('class', this.classname);
 
         let taskCheck = document.createElement('input');
         taskCheck.setAttribute('type', 'checkbox');
@@ -47,5 +48,15 @@ class Task {
         taskBtns.append(taskBtnFavorite, taskBtnDelete)
         task.append(taskCheck, taskText, taskTimeContainer, taskBtns);
         container.append(task);
+    }
+
+
+    deleteTask (chosenTask) {
+        const elements = document.querySelectorAll(`.${this.classname}`);
+        elements.forEach(i => {
+            if (item == chosenTask) {
+                item.remove();
+            }
+        })
     }
 }

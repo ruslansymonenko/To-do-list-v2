@@ -6,15 +6,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBtnClose = document.querySelector('.modal__btn-close');
     const modalBtnConfirm = document.querySelector('.modal__btn-confirm');
     const modalTaskText = document.querySelector('.modal__text-area');
+    let deleteBtns = document.querySelectorAll('.task__btn-trash');
 
-    function createNewTask (taskText, taskDate, taskTime) {
+    function createNewTask (taskText, taskDate, taskTime, className) {
         if (taskText != '') {
-            let newTask = new Task(taskText, taskDate, taskTime);
+            let newTask = new Task(taskText, taskDate, taskTime, className);
             newTask.render(taskContainer);
             console.log(newTask);
+            deleteBtns = document.querySelectorAll('.task__btn-trash');
+            watchBtns(deleteBtns);
         } else {
             let newTask = new Task('empty task', '09.11.22', '13:42');
             newTask.render(taskContainer);
+            deleteBtns = document.querySelectorAll('.task__btn-trash');
+            watchBtns(deleteBtns);
         }
     }
 
@@ -51,23 +56,33 @@ document.addEventListener('DOMContentLoaded', () => {
         modalTask.classList.remove('modal__task--active');
     }
 
+    function watchBtns(btns) {
+        btns.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.target.closest('.task').remove();
+            })
+        })
+    }
+
     addTask.addEventListener('click', () => {
         showModal();
     });
 
     modalBtnClose.addEventListener('click', () => {
         closeModal();
-    })
+    });
 
     modalBtnConfirm.addEventListener('click', () => {
         let text = modalTaskText.value;
         let currentTime = getTime();
         let currentDate = getDate();
 
-        createNewTask(text, currentDate, currentTime);
+        createNewTask(text, currentDate, currentTime, 'task');
 
         modalTaskText.value = '';
         text = '';
         closeModal();
-    })
+    });
+
+    watchBtns(deleteBtns);
 })
