@@ -9,12 +9,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createNewTask (taskText, taskDate, taskTime) {
         if (taskText != '') {
-            let newTask = new Task(taskText, '09.11.22', '13:42');
+            let newTask = new Task(taskText, taskDate, taskTime);
             newTask.render(taskContainer);
             console.log(newTask);
         } else {
             let newTask = new Task('empty task', '09.11.22', '13:42');
             newTask.render(taskContainer);
+        }
+    }
+
+    function getTime () {
+        let time = new Date();
+        let currentTime = `${time.getHours()}:${time.getMinutes()}`;
+        return currentTime
+    }
+
+    function getDate () {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const d = date.getDate();
+
+        let currentDate = ``;
+
+        if (d < 10) {
+            currentDate = `0${d}.${month}.${year}`;
+            return currentDate
+        } else {
+            currentDate = `${d}.${month}.${year}`;
+            return currentDate
         }
     }
 
@@ -38,7 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modalBtnConfirm.addEventListener('click', () => {
         let text = modalTaskText.value;
-        createNewTask(text);
+        let currentTime = getTime();
+        let currentDate = getDate();
+
+        createNewTask(text, currentDate, currentTime);
 
         modalTaskText.value = '';
         text = '';
