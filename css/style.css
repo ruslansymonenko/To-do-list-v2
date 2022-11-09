@@ -219,8 +219,14 @@ body{
     border-left: 4px solid var(--main-color);
     transition: all .5s;
 }
+
 .task__favorite{
     background-color: #F9F871;
+}
+
+.task__done{
+    filter: grayscale(80%);
+    text-decoration: line-through;
 }
 
 .tasks__container::-webkit-scrollbar{

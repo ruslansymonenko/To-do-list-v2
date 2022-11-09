@@ -8,23 +8,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTaskText = document.querySelector('.modal__text-area');
     let deleteBtns = document.querySelectorAll('.task__btn-trash');
     let favoriteBtns = document.querySelectorAll('.task__btn-favorite');
+    let taskChecks = document.querySelectorAll('.form-check-input');
+
+    const allTasks = [];
+
+    let taskToCheck;
 
     function createNewTask (taskText, taskDate, taskTime, className, taskId) {
         if (taskText != '') {
             let newTask = new Task(taskText, taskDate, taskTime, className, taskId);
             newTask.render(taskContainer);
-            console.log(newTask);
+            allTasks.push(newTask);
+            console.log(allTasks);
+
+            //Redefining buttons for proper tracking
             deleteBtns = document.querySelectorAll('.task__btn-trash');
             favoriteBtns = document.querySelectorAll('.task__btn-favorite');
+            taskChecks = document.querySelectorAll('.form-check-input');
             watchBtns(deleteBtns, 'delete');
             watchBtns(favoriteBtns, 'favorite'); 
+            watchInputs();
         } else {
             let newTask = new Task('empty task', '09.11.22', '13:42');
             newTask.render(taskContainer);
+
+            //Redefining buttons for proper tracking
             deleteBtns = document.querySelectorAll('.task__btn-trash');
             favoriteBtns = document.querySelectorAll('.task__btn-favorite');
+            taskChecks = document.querySelectorAll('.form-check-input');
             watchBtns(deleteBtns, 'delete');
             watchBtns(favoriteBtns, 'favorite'); 
+            watchInputs();
         }
     }
 
@@ -83,6 +97,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function watchInputs () {
+        taskChecks.forEach(item => {
+            item.addEventListener('click', (e) => {
+                let idForCheck = e.target.closest('.task').getAttribute('data-id');
+                let newOption = toogleOption(e.target.checked);
+
+                findTask(idForCheck);
+
+                let checkingTask = taskToCheck;
+                checkingTask.status = newOption;
+
+                if (checkingTask.status == true) {
+                    let wholeTasks = document.querySelectorAll('.task');
+                    wholeTasks.forEach(item => {
+                        if (item.getAttribute('data-id') == idForCheck) {
+                            item.classList.add('task__done');
+                        }
+                    })
+                } else if (checkingTask.status == false) {
+                    let wholeTasks = document.querySelectorAll('.task');
+                    wholeTasks.forEach(item => {
+                        if (item.getAttribute('data-id') == idForCheck) {
+                            item.classList.remove('task__done');
+                        }
+                    })
+                }
+            })
+        })
+    }
+
+    function toogleOption (currentOption) {
+        if (currentOption == false) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    function findTask (id) {
+        allTasks.forEach(item => {
+            if (item['id'] == parseInt(id)) {
+                taskToCheck = item;
+                return taskToCheck;
+            }
+        })
+    }
+
     addTask.addEventListener('click', () => {
         showModal();
     });
@@ -91,6 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal();
     });
 
+
+    //Creating new tasks
     modalBtnConfirm.addEventListener('click', () => {
         let text = modalTaskText.value;
         let currentTime = getTime();
@@ -105,5 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     watchBtns(deleteBtns, 'delete');
-    watchBtns(favoriteBtns, 'favorite'); 
+    watchBtns(favoriteBtns, 'favorite');
+    watchInputs(); 
 })
