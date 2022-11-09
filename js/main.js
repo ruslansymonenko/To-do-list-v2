@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             watchBtns(favoriteBtns, 'favorite'); 
             watchInputs();
         } else {
-            let newTask = new Task('empty task', '09.11.22', '13:42');
+            let newTask = new Task('empty task', taskDate, taskTime, 'task');
             newTask.render(taskContainer);
 
             //Redefining buttons for proper tracking
@@ -44,8 +44,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getTime () {
         let time = new Date();
-        let currentTime = `${time.getHours()}:${time.getMinutes()}`;
-        return currentTime
+        let minutes = time.getMinutes();
+        let hours = time.getHours();
+        
+
+        if (minutes < 10) {
+            let currentTime = `${hours}:0${minutes}`;
+            return currentTime
+        } else if (hours < 10) {
+            let currentTime = `0${hours}:${minutes}`;
+            return currentTime
+        } else {
+            let currentTime = `${hours}:${minutes}`;
+            return currentTime
+        }
     }
 
     function getDate () {
