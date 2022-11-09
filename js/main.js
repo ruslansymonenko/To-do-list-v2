@@ -4,11 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTask = document.querySelector('.modal__task');
     const appWrapper = document.querySelector('.wrapper');
     const modalBtnClose = document.querySelector('.modal__btn-close');
+    const modalBtnConfirm = document.querySelector('.modal__btn-confirm');
+    const modalTaskText = document.querySelector('.modal__text-area');
 
-    function createNewTask () {
-        let newTask = new Task('my task', '09.11.22', '13:42');
-        newTask.render(taskContainer);
-        console.log(newTask);
+    function createNewTask (taskText, taskDate, taskTime) {
+        if (taskText != '') {
+            let newTask = new Task(taskText, '09.11.22', '13:42');
+            newTask.render(taskContainer);
+            console.log(newTask);
+        } else {
+            let newTask = new Task('empty task', '09.11.22', '13:42');
+            newTask.render(taskContainer);
+        }
     }
 
     function showModal () {
@@ -26,6 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     modalBtnClose.addEventListener('click', () => {
+        closeModal();
+    })
+
+    modalBtnConfirm.addEventListener('click', () => {
+        let text = modalTaskText.value;
+        createNewTask(text);
+
+        modalTaskText.value = '';
+        text = '';
         closeModal();
     })
 })
