@@ -64,6 +64,7 @@ body{
     font-weight: 400;
     font-size: 14px;
     color: #003B46;
+    position: relative;
 }
 
 .wrapper {
@@ -73,6 +74,11 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 1;
+    transition: all .4s;
+}
+
+.wrapper--inactive{
+    filter: grayscale(80%);
 }
 
 .app{
@@ -305,4 +311,71 @@ body{
 
 .add__task:active{
     transform: scale(0.9)
+}
+
+.modal__task {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    height: 400px;
+    width: 600px;
+    top: 185px;
+    right: 443px;
+    background-color: var(--main-color);
+    padding: 10px;
+    z-index: 15;
+    border-radius: 5px;
+    transform: translateX(-200%);
+    transition: all .6s;
+}
+
+.modal__task--active{
+    transform: translateX(0%);
+}
+
+.task__modal-title{
+    text-align: center;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.modal__text-area{
+    width: 400px;
+    height: 250px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    resize: none;
+    font-size: 40px;
+    border-left: 5px solid #fe3011;
+}
+.modal__text-area:focus{
+    outline: none;
+}
+
+.modal__btns {
+    width: 400px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.modal__btn {
+    height: 40px;
+    width: 40px;
+    margin: 0 20px;
+    border:  none;
+    border-radius: 3px;
+    background-color: white;
+    transition: all .4s;
+}
+
+.modal__btn:hover{
+    transform: scale(1.08);
+}
+
+.modal__btn:active{
+    transform: scale(0.9);
 }
