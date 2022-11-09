@@ -216,7 +216,7 @@ body{
 }
 
 .tasks__container::-webkit-scrollbar-thumb{
-    background-color: var(--contast-color);
+    background-color: var(--contrast-color);
     border-radius: 5px;
 }
 
