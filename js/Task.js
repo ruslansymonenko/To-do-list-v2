@@ -1,17 +1,24 @@
 class Task {
-    constructor(text, date, time, classname, id) {
+    constructor(text, date, time, classname, id, favorite = false, status = false) {
         this.text = text;
         this.date = date;
         this.time = time;
-        this.favorite = false;
-        this.status = false;
+        this.favorite = favorite;
+        this.status = status;
         this.classname = classname;
         this.id = id;
     }
 
     render(container) {
         let task = document.createElement('div');
-        task.setAttribute('class', this.classname);
+        
+        if (!this.status && !this.favorite) {
+            task.setAttribute('class', this.classname);
+        } else if (this.status) {
+            task.setAttribute('class', `${this.classname} task__done`);
+        } else if (this.favorite) {
+            task.setAttribute('class', `${this.classname} task__favorite`);
+        }
         task.setAttribute('data-id', `${this.id}`);
 
         let taskCheck = document.createElement('input');

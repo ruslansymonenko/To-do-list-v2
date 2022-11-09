@@ -10,7 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let favoriteBtns = document.querySelectorAll('.task__btn-favorite');
     let taskChecks = document.querySelectorAll('.form-check-input');
 
-    const allTasks = [];
+    const allTasks = [
+        {
+            text: "Збережена задача",
+            date: "09.11.2022",
+            time: "21:46",
+            favorite: false,
+            status: false,
+            id: 12345,
+            classname: 'task'
+        }
+    ];
 
     let taskToCheck;
 
@@ -95,6 +105,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function addToFavorite (el) {
         el.closest('.task').classList.toggle('task__favorite');
         el.classList.toggle('task__btn-favorite--active');
+
+        let idForCheck = el.closest('.task').getAttribute('data-id');
+        if (el.closest('.task').classList.contains('task__favorite')) {
+            findTask(idForCheck);
+            let chosedTask = taskToCheck;
+            chosedTask['favorite'] = true;
+            console.log(chosedTask);
+        } else if (!el.closest('.task').classList.contains('task__favorite')) {
+            findTask(idForCheck);
+            let chosedTask = taskToCheck;
+            chosedTask['favorite'] = false;
+            console.log(chosedTask);
+        }
     }
 
     function watchBtns(btns, option) {
@@ -155,6 +178,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
     }
+
+    function renderSavedTasks (arr) {
+        arr.forEach(item => {
+            let task = new Task(item['text'], item['date'], item['time'], item['classname'], item['id'], item['favorite'], item['status']);
+            task.render(taskContainer);
+        })
+    }
+
+    //Start
+    renderSavedTasks(allTasks);
 
     addTask.addEventListener('click', () => {
         showModal();
