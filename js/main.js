@@ -9,18 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let deleteBtns = document.querySelectorAll('.task__btn-trash');
     let favoriteBtns = document.querySelectorAll('.task__btn-favorite');
 
-    function createNewTask (taskText, taskDate, taskTime, className) {
+    function createNewTask (taskText, taskDate, taskTime, className, taskId) {
         if (taskText != '') {
-            let newTask = new Task(taskText, taskDate, taskTime, className);
+            let newTask = new Task(taskText, taskDate, taskTime, className, taskId);
             newTask.render(taskContainer);
             console.log(newTask);
             deleteBtns = document.querySelectorAll('.task__btn-trash');
+            favoriteBtns = document.querySelectorAll('.task__btn-favorite');
             watchBtns(deleteBtns, 'delete');
             watchBtns(favoriteBtns, 'favorite'); 
         } else {
             let newTask = new Task('empty task', '09.11.22', '13:42');
             newTask.render(taskContainer);
             deleteBtns = document.querySelectorAll('.task__btn-trash');
+            favoriteBtns = document.querySelectorAll('.task__btn-favorite');
             watchBtns(deleteBtns, 'delete');
             watchBtns(favoriteBtns, 'favorite'); 
         }
@@ -49,6 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function makeId () {
+        let id = Math.floor(Math.random() * 10000000);
+        return id
+    }
+
     function showModal () {
         appWrapper.classList.add('wrapper--inactive');
         modalTask.classList.add('modal__task--active');
@@ -59,15 +66,18 @@ document.addEventListener('DOMContentLoaded', () => {
         modalTask.classList.remove('modal__task--active');
     }
 
+    function addToFavorite (el) {
+        el.closest('.task').classList.toggle('task__favorite');
+        el.classList.toggle('task__btn-favorite--active');
+    }
+
     function watchBtns(btns, option) {
         btns.forEach(item => {
             item.addEventListener('click', (e) => {
                 if (option == 'delete') {
                     e.target.closest('.task').remove();
                 } else if ('favorite') {
-                    e.target.closest('.task').classList.toggle('task__favorite');
-                    console.log(e.target);
-                    e.target.classList.toggle('task__btn-favorite--active');
+                    addToFavorite(e.target);
                 }
             })
         });
@@ -85,8 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let text = modalTaskText.value;
         let currentTime = getTime();
         let currentDate = getDate();
+        let taksId = makeId();
 
-        createNewTask(text, currentDate, currentTime, 'task');
+        createNewTask(text, currentDate, currentTime, 'task', taksId);
 
         modalTaskText.value = '';
         text = '';
