@@ -1,29 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ua">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do</title>
 
+    <link rel="icon" href="./images/icon/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <div class="wrapper">
-        <header class="header">
-            <h1 class="header__user">
-                Hello User
-            </h1>
-            <div class="header__theme">
-                <button class="header__btn"></button>
-            </div>
-        </header>
+        <div class="app">
+            <header class="header">
+                <h1 class="header__user">
+                    Доброго дня, Руслане
+                </h1>
+                <img class="header__logo" src="./images/logo.png" alt="logo">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                </div>
+            </header>
 
-        <section class="info"></section>
+            <section class="info">
+                <div class="info__day">
+                    <h2 class="info__day-title">Сьогодні:</h2>
+                    <h2 class="info__day-value">8 листопада 2022</h2>
+                </div>
+                <div class="info__weather">
+                    <h2 class="info__weather-title">Погода:</h2>
+                    <div class="info__weather-value">
+                        +2
+                    </div>
+                </div>
+            </section>
 
-        <section class="tasks"></section>
+            <section class="tasks">
+                <h2 class="tasks__header">Задачі</h2>
+                <div class="tasks__container">
+                    <div class="task">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        </div>
+                        <div class="task__text">My first task</div>
+                        <div class="task__time-marker">
+                            <div class="task__time">21:46</div>
+                            <div class="task__date">08.11.22</div>
+                        </div>
+                        <div class="task__btns">
+                            <button class="task__btn task__btn--important">
+                                <div class="task__btn-img task__btn-favorite"></div>
+                            </button>
+                            <button class=" task__btn task__btn--delete">
+                                <div class="task__btn-img task__btn-trash"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <button class="add__task">
+            New
+        </button>
+
+
     </div>
 
+    <div class="modal__task">
+        <h3 class="task__modal-title">
+            Додайте нову задачу
+        </h3>
+        <textarea class="modal__text-area" name="" id="" cols="30" rows="10" placeholder="Ваша задача"></textarea>
+        <div class="modal__btns">
+            <button class="modal__btn modal__btn-confirm">
+                <img class="modal__img" src="./images/icon/confirm-task.png" alt="">
+            </button>
+            <button class="modal__btn modal__btn-close">
+                <img class="modal__img" src="./images/icon/reject-task.png" alt="">
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="./js/Task.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>
