@@ -219,7 +219,9 @@ body{
     border-left: 4px solid var(--main-color);
     transition: all .5s;
 }
-
+.task__favorite{
+    background-color: #F9F871;
+}
 
 .tasks__container::-webkit-scrollbar{
     width: 10px;
@@ -278,7 +280,11 @@ body{
 
 .task__btn-favorite:hover{
     transform: scale(1.2);
+}
+
+.task__btn-favorite--active{
     background-image: var(--image-star-active);
+    transition: all .4s;
 }
 
 .task__btn-trash{
